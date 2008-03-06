@@ -37,8 +37,12 @@ isnt( $sig3, signature( bless { key1 => 1 } ), "Signature 3" );
 $obj3->{key1} = 1;
 is( $sig3, signature( $obj3 ), "Signature 3" );
 
-my $obj4
-  = bless { key1 => $obj3, key2 => $obj2, key3 => $obj, key4 => undef };
+my $obj4 = bless {
+    key1 => $obj3,
+    key2 => $obj2,
+    key3 => $obj,
+    key4 => undef
+};
 ok( my $sig4 = signature( $obj4 ) );
 isnt(
     $sig4,

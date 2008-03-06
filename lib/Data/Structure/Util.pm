@@ -79,7 +79,7 @@ sub circular_off {
 }
 
 sub signature {
-    @_
+    return @_
       ? md5_hex( Dumper( [ $_[0], signature_xs( $_[0] ) ] ) )
       : '0' x 32;
 }

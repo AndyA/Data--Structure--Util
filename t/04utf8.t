@@ -7,6 +7,8 @@ use warnings;
 use Data::Dumper;
 use Clone qw(clone);
 
+use bytes;
+
 BEGIN {
     if ( $] < 5.008 ) {
         my $reason
