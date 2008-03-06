@@ -1,6 +1,7 @@
 --- #YAML:1.0
 name: Data-Structure-Util
-version: 0.12
+version: 0.13
+
 author:
   - Pierre Denis <pdenis@fotango.com>
 abstract: Change nature of data within a structure
