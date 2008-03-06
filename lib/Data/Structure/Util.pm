@@ -15,55 +15,55 @@ require AutoLoader;
 $VERSION = '0.12';
 
 @EXPORT_OK = qw(
-   unbless get_blessed get_refs has_circular_ref
-   circular_off signature
+  unbless get_blessed get_refs has_circular_ref
+  circular_off signature
 );
 
-if ($] >= 5.008) {
- push @EXPORT_OK, qw(
-   has_utf8 utf8_off utf8_on _utf8_on _utf8_off
- );
+if ( $] >= 5.008 ) {
+    push @EXPORT_OK, qw(
+      has_utf8 utf8_off utf8_on _utf8_on _utf8_off
+    );
 }
 
 bootstrap Data::Structure::Util $VERSION;
 
 sub has_utf8 {
-  has_utf8_xs($_[0]) ? $_[0] : undef;
+    has_utf8_xs( $_[0] ) ? $_[0] : undef;
 }
 
 sub utf8_off {
-  utf8_off_xs($_[0]) ? $_[0] : undef;
+    utf8_off_xs( $_[0] ) ? $_[0] : undef;
 }
 
 sub utf8_on {
-  utf8_on_xs($_[0]) ? $_[0] : undef;
+    utf8_on_xs( $_[0] ) ? $_[0] : undef;
 }
 
 sub _utf8_off {
-  _utf8_off_xs($_[0]) ? $_[0] : undef;
+    _utf8_off_xs( $_[0] ) ? $_[0] : undef;
 }
 
 sub _utf8_on {
-  _utf8_on_xs($_[0]) ? $_[0] : undef;
+    _utf8_on_xs( $_[0] ) ? $_[0] : undef;
 }
 
 sub unbless {
-  unbless_xs($_[0]);
+    unbless_xs( $_[0] );
 }
 
 sub get_blessed {
-  $_[0] or return [];
-  get_blessed_xs($_[0]);
+    $_[0] or return [];
+    get_blessed_xs( $_[0] );
 }
 
 sub get_refs {
-  $_[0] or return [];
-  get_refs_xs($_[0]);
+    $_[0] or return [];
+    get_refs_xs( $_[0] );
 }
 
 sub has_circular_ref {
-  $_[0] or return $_[0];
-  has_circular_ref_xs($_[0]);
+    $_[0] or return $_[0];
+    has_circular_ref_xs( $_[0] );
 }
 
 # Need to hold another reference to the passed in value to avoid this
@@ -73,20 +73,20 @@ sub has_circular_ref {
 #  circular_off($obj8); # Used to throw an error
 
 sub circular_off {
-  my $r = $_[0];
-  $r or return $r;
-  circular_off_xs($r);
+    my $r = $_[0];
+    $r or return $r;
+    circular_off_xs( $r );
 }
 
 sub signature {
-  @_ ? md5_hex(Dumper([ $_[0], signature_xs($_[0]) ]))
-     : '0' x 32;
+    @_
+      ? md5_hex( Dumper( [ $_[0], signature_xs( $_[0] ) ] ) )
+      : '0' x 32;
 }
 
 1;
 
 __END__
-
 
 =head1 NAME
 
