@@ -1,0 +1,8 @@
+--- #YAML:1.0
+name: Data-Structure-Util
+version: 0.12
+author:
+  - Pierre Denis <pdenis@fotango.com>
+abstract: Change nature of data within a structure
+license: perl
+generated_by: Module::Build version 0.2609, without YAML.pm
