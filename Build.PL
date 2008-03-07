@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-use 5.008;
+# use 5.008;
 use Module::Build;
 # See perldoc Module::Build for details of how this works
 

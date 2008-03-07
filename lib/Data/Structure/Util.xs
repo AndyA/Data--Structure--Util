@@ -16,7 +16,8 @@
 
 SV *
 _get_infos( SV * sv ) {
-    return newSVpvf( "%p-%i-%i", sv, SvFLAGS( sv ) & ~SVf_OOK, SvTYPE( sv ) );
+    return newSVpvf( "%p-%x-%x", sv, SvFLAGS( sv ) & ~SVf_OOK,
+                     SvTYPE( sv ) );
 }
 
 /*
