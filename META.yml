@@ -1,8 +1,10 @@
 ---
 name: Data-Structure-Util
-version: 0.13
+version: 0.14
+
 author:
-  - 'Pierre Denis <pdenis@fotango.com>'
+  - 'This release by Andy Armstrong <andy@hexten.net>'
+  - 'Originally by Pierre Denis <pdenis@fotango.com>'
 abstract: Change nature of data within a structure
 license: perl
 resources:
@@ -20,7 +22,8 @@ dynamic_config: 0
 provides:
   Data::Structure::Util:
     file: lib/Data/Structure/Util.pm
-    version: 0.13
+    version: 0.14
+
 generated_by: Module::Build version 0.280801
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

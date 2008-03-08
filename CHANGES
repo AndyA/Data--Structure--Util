@@ -1,7 +1,6 @@
 Revision history for Perl module Data::Structure::Util
 
 0.13 2008-03-06
-    - ANDYA took over as maintainer
     - Fixed signature to ignore SVf_OOK
     - Fixed t/04utf8.t failure by adding use bytes. The default
       behaviour of unpack changed for 5.10 and that was causing

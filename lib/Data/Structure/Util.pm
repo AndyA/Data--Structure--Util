@@ -12,7 +12,7 @@ require AutoLoader;
 
 @ISA = qw(Exporter DynaLoader);
 
-$VERSION = '0.13';
+$VERSION = '0.14';
 
 @EXPORT_OK = qw(
   unbless get_blessed get_refs has_circular_ref
@@ -469,7 +469,9 @@ documentation and patched a few bugs.
 
 =head1 AUTHOR
 
-Pierre Denis <pdenis@fotango.com>
+This release by Andy Armstrong <andy@hexten.net>
+
+Originally by Pierre Denis <pdenis@fotango.com>
 
 http://opensource.fotango.com/
 
