@@ -27,7 +27,7 @@ Upgrade strings to utf8
 */
 bool
 _utf8_set( SV * sv, HV * seen, int onoff ) {
-    I32 i;
+    I32 len, i;
     HV *myHash;
     HE *HEntry;
     SV **AValue;
@@ -49,7 +49,8 @@ _utf8_set( SV * sv, HV * seen, int onoff ) {
 
     case SVt_PVAV:{
             dsWARN( "Found array\n" );
-            for ( i = 0; i <= av_len( ( AV * ) sv ); i++ ) {
+            len = av_len( ( AV * ) sv );
+            for ( i = 0; i <= len; i++ ) {
                 AValue = av_fetch( ( AV * ) sv, i, 0 );
                 if ( AValue )
                     _utf8_set( *AValue, seen, onoff );
@@ -101,7 +102,7 @@ Change utf8 flag
 */
 bool
 _utf8_flag_set( SV * sv, HV * seen, int onoff ) {
-    I32 i;
+    I32 i, len;
     HV *myHash;
     HE *HEntry;
     SV **AValue;
@@ -123,7 +124,8 @@ _utf8_flag_set( SV * sv, HV * seen, int onoff ) {
 
     case SVt_PVAV:{
             dsWARN( "Found array\n" );
-            for ( i = 0; i <= av_len( ( AV * ) sv ); i++ ) {
+            len = av_len( ( AV * ) sv );
+            for ( i = 0; i <= len; i++ ) {
                 AValue = av_fetch( ( AV * ) sv, i, 0 );
                 if ( AValue )
                     _utf8_flag_set( *AValue, seen, onoff );
@@ -177,7 +179,7 @@ Returns true if sv contains a utf8 string
 */
 bool
 _has_utf8( SV * sv, HV * seen ) {
-    I32 i;
+    I32 i, len;
     SV **AValue;
     HV *myHash;
     HE *HEntry;
@@ -204,7 +206,8 @@ _has_utf8( SV * sv, HV * seen ) {
         }
     case SVt_PVAV:{
             dsWARN( "Found array\n" );
-            for ( i = 0; i <= av_len( ( AV * ) sv ); i++ ) {
+            len = av_len( ( AV * ) sv );
+            for ( i = 0; i <= len; i++ ) {
                 AValue = av_fetch( ( AV * ) sv, i, 0 );
                 if ( AValue && _has_utf8( *AValue, seen ) )
                     return TRUE;
@@ -232,7 +235,7 @@ unbless any object within the data structure
 */
 SV *
 _unbless( SV * sv, HV * seen ) {
-    I32 i;
+    I32 i, len;
     SV **AValue;
     HV *myHash;
     HE *HEntry;
@@ -257,7 +260,8 @@ _unbless( SV * sv, HV * seen ) {
 
     case SVt_PVAV:{
             dsWARN( "an array\n" );
-            for ( i = 0; i <= av_len( ( AV * ) sv ); i++ ) {
+            len = av_len( ( AV * ) sv );
+            for ( i = 0; i <= len; i++ ) {
                 AValue = av_fetch( ( AV * ) sv, i, 0 );
                 if ( AValue )
                     _unbless( *AValue, seen );
