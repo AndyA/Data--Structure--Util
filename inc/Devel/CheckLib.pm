@@ -115,7 +115,7 @@ sub assert_lib {
 
     # work-a-like for Makefile.PL's "LIBS" argument
     if ( defined( $args{LIBS} ) ) {
-        foreach my $arg ( split( /\s+/, $args{LIBS} ) ) {
+        for my $arg ( split( /\s+/, $args{LIBS} ) ) {
             die( "LIBS argument badly-formed: $arg\n" )
               unless ( $arg =~ /^-l/i );
             push @{ $arg =~ /^-l/ ? \@libs : \@libpaths },
@@ -186,7 +186,7 @@ sub _findcc {
     my @paths = split( /$Config{path_sep}/, $ENV{PATH} );
     my @cc = split( /\s+/, $Config{cc} );
     return @cc if -x $cc[0];
-    foreach my $path ( @paths ) {
+    for my $path ( @paths ) {
         my $compiler
           = File::Spec->catfile( $path, $cc[0] ) . $Config{_exe};
         return ( $compiler, @cc[ 1 .. $#cc ] ) if -x $compiler;
