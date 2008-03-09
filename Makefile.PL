@@ -1,31 +1,58 @@
-use 5.006;
-unless ( eval "use Module::Build::Compat 0.02; 1" ) {
-    print "This module requires Module::Build to install itself.\n";
+use 5.008;
 
-    require ExtUtils::MakeMaker;
-    my $yn = ExtUtils::MakeMaker::prompt(
-        '  Install Module::Build from CPAN?', 'y' );
+use strict;
 
-    if ( $yn =~ /^y/i ) {
-        require Cwd;
-        require File::Spec;
-        require CPAN;
+use lib qw(inc);
+use Config;
+use Devel::CheckLib;
+use ExtUtils::MakeMaker;
 
-        # Save this 'cause CPAN will chdir all over the place.
-        my $cwd      = Cwd::cwd();
-        my $makefile = File::Spec->rel2abs( $0 );
+# Check that we have a C compiler
+check_lib_or_exit();
 
-        CPAN::Shell->install( 'Module::Build::Compat' );
+my %mm_args = (
+    ( MM->can( 'signature_target' ) ? ( SIGN => 1 ) : () ),
+    NAME          => 'Data::Structure::Util',
+    AUTHOR        => 'Andy Armstrong <andy@hexten.net>',
+    VERSION_FROM  => 'lib/Data/Structure/Util.pm',
+    ABSTRACT_FROM => 'lib/Data/Structure/Util.pm',
+    PL_FILES      => {},
+    PREREQ_PM     => {
+        'Digest::MD5'  => 0,
+        'Scalar::Util' => '1.01',
+        'Test::More'   => 0,
+        'Test::Pod'    => 0,
+        'Test::Simple' => 0,
+    },
+    LIBS   => [''],
+    DEFINE => '',
+    INC    => '',
+    dist   => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    clean => { FILES => 'Data-Structure-Util-*' },
+);
 
-        chdir $cwd or die "Cannot chdir() back to $cwd: $!";
-        exec $^X, $makefile,
-          @ARGV;    # Redo now that we have Module::Build
-    }
-    else {
-        warn
-          " *** Cannot install without Module::Build.  Exiting ...\n";
-        exit 1;
+{
+    local $^W = 0;    # Silence warning about non-numeric version
+    if ( $ExtUtils::MakeMaker::VERSION >= '6.31' ) {
+        $mm_args{LICENSE} = 'perl';
     }
 }
-Module::Build::Compat->run_build_pl( args => \@ARGV );
-Module::Build::Compat->write_makefile();
+
+WriteMakefile( %mm_args );
+
+package MY;
+
+sub metafile {
+    my @lines = split /\n/, shift->SUPER::metafile_target( @_ );
+
+    my @exclude = qw( Devel::CheckLib IO::CaptureOutput );
+    my $pad     = ' ' x 4;
+    die "Can't parse Makefile fragment"
+      unless $lines[-2] =~ /^([^']*').*?('[^']*)$/;
+    splice @lines, -1, 0, map { "$1$_$2" } (
+        'no_index:', "${pad}package:",
+        map { "${pad}${pad}- $_" } @exclude
+    );
+
+    return join "\n", @lines;
+}

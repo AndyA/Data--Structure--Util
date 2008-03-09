@@ -1,13 +1,12 @@
-Build.PL
+bin/packages.pl
 CHANGES
-MANIFEST			This list of files
-META.yml
+inc/Devel/CheckLib.pm
+inc/IO/CaptureOutput.pm
+lib/Data/Structure/Util.pm
 Makefile.PL
+MANIFEST
 NINJA
 README
-bin/packages.pl
-lib/Data/Structure/Util.pm
-lib/Data/Structure/Util.xs
 t/00pod.t
 t/01compile.t
 t/02circular.t
@@ -16,3 +15,4 @@ t/03bless.t
 t/04utf8.t
 t/05refs.t
 t/06signature.t
+Util.xs
