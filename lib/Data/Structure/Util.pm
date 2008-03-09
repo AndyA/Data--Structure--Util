@@ -12,13 +12,12 @@ require Exporter;
 require DynaLoader;
 require AutoLoader;
 
-@ISA = qw(Exporter DynaLoader);
+@ISA = qw( Exporter DynaLoader );
 
-$VERSION = '0.14';
+$VERSION = '0.15';
 
 @EXPORT_OK = qw(
-  unbless get_blessed get_refs has_circular_ref
-  circular_off signature
+  unbless get_blessed get_refs has_circular_ref circular_off signature
 );
 
 if ( $] >= 5.008 ) {
@@ -69,7 +68,7 @@ sub has_circular_ref {
 }
 
 # Need to hold another reference to the passed in value to avoid this
-# patholgical case throwing an error
+# pathological case throwing an error
 #  my $obj8 = [];
 #  $obj8->[0] = \$obj8;
 #  circular_off($obj8); # Used to throw an error
@@ -96,51 +95,50 @@ Data::Structure::Util - Change nature of data within a structure
 
 =head1 SYNOPSIS
 
-  use Data::Structure::Util qw(has_utf8 utf8_off utf8_on
-    _utf8_off _utf8_on unbless get_blessed get_refs
-    has_circular_ref circular_off signature);
+    use Data::Structure::Util qw(
+      has_utf8 utf8_off utf8_on unbless get_blessed get_refs
+      has_circular_ref circular_off signature
+    );
 
-  # get the objects in the data structure
-  my $objects_arrayref = get_blessed($data);
+    # get the objects in the data structure
+    my $objects_arrayref = get_blessed( $data );
 
-  # unbless all objects
-  unbless($data);
+    # unbless all objects
+    unbless( $data );
 
-  if (has_circular_ref($data))
-  {
-    print "Removing circular ref!\n";
-    circular_off($data)
-  }
+    if ( has_circular_ref( $data ) ) {
+        print "Removing circular ref!\n";
+        circular_off( $data );
+    }
 
-  # convert back to latin1 if needed and possible
-  utf8_off($data) if defined has_utf8($data);
+    # convert back to latin1 if needed and possible
+    utf8_off( $data ) if defined has_utf8( $data );
 
 =head1 DESCRIPTION
 
 C<Data::Structure::Util> is a toolbox to manipulate the data inside a
-data structure.  It can process an entire tree and perform the
-operation requested on each appropriate element.
+data structure. It can process an entire tree and perform the operation
+requested on each appropriate element.
 
 For example: It can transform all strings within a data structure to
-utf8 or transform any utf8 string back to the default encoding.  It
-can remove the blessing on any reference. It can collect all the
-objects or detect if there is a circular reference.
+utf8 or transform any utf8 string back to the default encoding. It can
+remove the blessing on any reference. It can collect all the objects or
+detect if there is a circular reference.
 
 It is written in C for decent speed.
 
 =head1 FUNCTIONS
 
-All Data::Structure::Util functions operate on a whole tree.  If you
-pass them a simple scalar then they will operate on that one scalar.
-However, if you pass them a reference to a hash, array, or scalar then
-they will iterate though that structure and apply the manipulation to
-all elements, and in turn if they are references to hashes, arrays or
+All Data::Structure::Util functions operate on a whole tree. If you pass
+them a simple scalar then they will operate on that one scalar. However,
+if you pass them a reference to a hash, array, or scalar then they will
+iterate though that structure and apply the manipulation to all
+elements, and in turn if they are references to hashes, arrays or
 scalars to all their elements and so on, recursively.
 
-For speed reasons all manipulations that alter the data structure do
-in-place manipulation meaning that rather than returning an altered
-copy of the data structure the passed data structure which has been
-altered.
+For speed reasons all manipulations that alter the data structure do in-
+place manipulation meaning that rather than returning an altered copy of
+the data structure the passed data structure which has been altered.
 
 =head2 Manipulating Data Structures
 
@@ -148,19 +146,18 @@ altered.
 
 =item has_circular_ref($ref)
 
-This function detects if the passed data structure has a
-circular reference, that is to say if it is possible by following
-references contained in the structure to return to a part of the data
-structure you have already visited.  Data structures that have
-circular references will not be automatically reclaimed by Perl's
-garbage collector.
+This function detects if the passed data structure has a circular
+reference, that is to say if it is possible by following references
+contained in the structure to return to a part of the data structure you
+have already visited. Data structures that have circular references will
+not be automatically reclaimed by Perl's garbage collector.
 
 If a circular reference is detected the function returns a reference
 to an element within circuit, otherwise the function will return a
 false value.
 
-If the version of perl that you are using supports weak references
-then any weak references found within the data structure will not be
+If the version of perl that you are using supports weak references then
+any weak references found within the data structure will not be
 traversed, meaning that circular references that have had links
 successfully weakened will not be returned by this function.
 
@@ -171,12 +168,12 @@ each so that they can be properly garbage collected when no external
 references to the data structure are left.
 
 This means that one (or more) of the references in the data structure
-will be told that the should not count towards reference counting.
-You should be aware that if you later modify the data structure and
-leave parts of it only 'accessible' via weakened references that those
-parts of the data structure will be immediately garbage collected as
-the weakened references will not be strong enough to maintain the
-connection on their own.
+will be told that the should not count towards reference counting. You
+should be aware that if you later modify the data structure and leave
+parts of it only 'accessible' via weakened references that those parts
+of the data structure will be immediately garbage collected as the
+weakened references will not be strong enough to maintain the connection
+on their own.
 
 The number of references weakened is returned.
 
@@ -187,39 +184,25 @@ contains one copy of every reference in the data structure you passed.
 
 For example:
 
-  my $foo = {
-    first  => [ "inner", "array", { inmost => "hash" } ],
-    second => \"refed scalar",
-  };
+    my $foo = {
+        first  => [ "inner", "array", { inmost => "hash" } ],
+        second => \"refed scalar",
+    };
 
-  use Data::Dumper;
-  # tell Data::Dumper to show nodes multiple times
-  $Data::Dumper::Deepcopy = 1;
-  print Dumper get_refs($foo);
+    use Data::Dumper;
+    # tell Data::Dumper to show nodes multiple times
+    $Data::Dumper::Deepcopy = 1;
+    print Dumper get_refs( $foo );
 
-  $VAR1 = [
-            {
-              'inmost' => 'hash'
-            },
-            [
-              'inner',
-              'array',
-              {
-                'inmost' => 'hash'
-              }
-            ],
-          \'refed scalar',
-          {
-            'first' => [
-                         'inner',
-                         {
-                           'inmost' => 'hash'
-                         },
-                         'array'
-                       ],
+    $VAR1 = [
+        { 'inmost' => 'hash' },
+        [ 'inner', 'array', { 'inmost' => 'hash' } ],
+        \'refed scalar',
+        {
+            'first'  => [ 'inner', { 'inmost' => 'hash' }, 'array' ],
             'second' => \'refed scalar'
-          }
-        ];
+        }
+    ];
 
 As you can see, the data structure is traversed depth first, so the
 top most references should be the last elements of the array.  See
@@ -235,22 +218,22 @@ to generate the signature, meaning that even data structures that
 would look identical when dumped with Data::Dumper produce different
 signatures:
 
-  $ref1 = { key1 => [] };
+    $ref1 = { key1 => [] };
 
-  $ref2 = $ref1;
-  $ref2->{key1} = [];
+    $ref2 = $ref1;
+    $ref2->{key1} = [];
 
-  # this produces the same result, as they look the same
-  # even though they are different data structures
-  use Data::Dumper;
-  use Digest::MD5 qw(md5_hex);
-  print md5_hex(Dumper($ref1))," ",md5_hex(Dumper($ref2)),"\n";
-  # cb55d41da284a5869a0401bb65ab74c1 cb55d41da284a5869a0401bb65ab74c1
+    # this produces the same result, as they look the same
+    # even though they are different data structures
+    use Data::Dumper;
+    use Digest::MD5 qw(md5_hex);
+    print md5_hex( Dumper( $ref1 ) ), " ", md5_hex( Dumper( $ref2 ) ), "\n";
+    # cb55d41da284a5869a0401bb65ab74c1 cb55d41da284a5869a0401bb65ab74c1
 
-  # this produces differing results
-  use Data::Structure::Util qw(signature);
-  print signature($ref1)," ",signature($ref2),"\n";
-  # 5d20c5e81a53b2be90521167aefed9db 8b4cba2cbae0fec4bab263e9866d3911
+    # this produces differing results
+    use Data::Structure::Util qw(signature);
+    print signature( $ref1 ), " ", signature( $ref2 ), "\n";
+    # 5d20c5e81a53b2be90521167aefed9db 8b4cba2cbae0fec4bab263e9866d3911
 
 =back
 
@@ -263,29 +246,19 @@ signatures:
 Remove the blessing from any objects found within the passed data
 structure. For example:
 
-  my $foo = {
-           'a' => bless({
-                    'b' => bless({},"c"),
-                  },"d"),
-           'e' => [
-                    bless([],"f"),
-                    bless([],"g"),
-                  ]
-         };
+    my $foo = {
+        'a' => bless( { 'b' => bless( {}, "c" ), }, "d" ),
+        'e' => [ bless( [], "f" ), bless( [], "g" ), ]
+    };
 
-  use Data::Dumper;
-  use Data::Structure::Util qw(unbless);
-  print Dumper( unbless( $foo ));
+    use Data::Dumper;
+    use Data::Structure::Util qw(unbless);
+    print Dumper( unbless( $foo ) );
 
-  $VAR1 = {
-            'a' => {
-                     'b' => {}
-                   },
-            'e' => [
-                     [],
-                     []
-                   ]
-          };
+    $VAR1 = {
+        'a' => { 'b' => {} },
+        'e' => [ [], [] ]
+    };
 
 Note that the structure looks inside blessed objects for other
 objects to unbless.
@@ -295,30 +268,23 @@ objects to unbless.
 Examine the data structure and return a reference to flat array that
 contains every object in the data structure you passed.  For example:
 
-  my $foo = {
-           'a' => bless({
-                    'b' => bless({},"c"),
-                  },"d"),
-           'e' => [
-                    bless([],"f"),
-                    bless([],"g"),
-                  ]
-         };
+    my $foo = {
+        'a' => bless( { 'b' => bless( {}, "c" ), }, "d" ),
+        'e' => [ bless( [], "f" ), bless( [], "g" ), ]
+    };
 
-  use Data::Dumper;
-  # tell Data::Dumper to show nodes multiple times
-  $Data::Dumper::Deepcopy = 1;
-  use Data::Structure::Util qw(get_blessed);
-  print Dumper( get_blessed( $foo ));
+    use Data::Dumper;
+    # tell Data::Dumper to show nodes multiple times
+    $Data::Dumper::Deepcopy = 1;
+    use Data::Structure::Util qw(get_blessed);
+    print Dumper( get_blessed( $foo ) );
 
-  $VAR1 = [
-            bless( {}, 'c' ),
-            bless( {
-                     'b' => bless( {}, 'c' )
-                   }, 'd' ),
-            bless( [], 'f' ),
-            bless( [], 'g' )
-          ];
+    $VAR1 = [
+        bless( {}, 'c' ),
+        bless( { 'b' => bless( {}, 'c' ) }, 'd' ),
+        bless( [], 'f' ),
+        bless( [], 'g' )
+    ];
 
 This function is essentially the same as C<get_refs> but only returns
 blessed objects rather than all objects.  As with that function the
@@ -341,8 +307,8 @@ flag and it's significance can be found in L<Encode>.
 Returns C<$var> if the utf8 flag is enabled for C<$var> or any scalar
 that a data structure passed in C<$var> contains.
 
-  print "this will be printed"  if defined has_utf8("\x{1234}");
-  print "this won't be printed" if defined has_utf8("foo bar");
+    print "this will be printed"  if defined has_utf8( "\x{1234}" );
+    print "this won't be printed" if defined has_utf8( "foo bar" );
 
 Note that you should not check the truth of the return value of this
 function when calling it with a single scalar as it is possible to
@@ -366,11 +332,11 @@ then be henceforth treated as a character in it's own right.
 
 For example:
 
-  my $emoticons = { smile => "\x{236a}" };
-  use Data::Structure::Util qw(_utf8_on);
-  print length($emoticons->{smile}), "\n";  # prints 1
-  _utf8_off($emoticons);
-  print length($emoticons->{smile}), "\n";  # prints 3
+    my $emoticons = { smile => "\x{236a}" };
+    use Data::Structure::Util qw(_utf8_on);
+    print length( $emoticons->{smile} ), "\n";    # prints 1
+    _utf8_off( $emoticons );
+    print length( $emoticons->{smile} ), "\n";    # prints 3
 
 =item _utf8_on($var)
 
@@ -390,11 +356,11 @@ module as an alternative.
 
 Contrary example to the above:
 
-  my $emoticons = { smile => "\342\230\272" };
-  use Data::Structure::Util qw(_utf8_on);
-  print length($emoticons->{smile}), "\n";  # prints 3
-  _utf8_on($emoticons);
-  print length($emoticons->{smile}), "\n";  # prints 1
+    my $emoticons = { smile => "\342\230\272" };
+    use Data::Structure::Util qw(_utf8_on);
+    print length( $emoticons->{smile} ), "\n";    # prints 3
+    _utf8_on( $emoticons );
+    print length( $emoticons->{smile} ), "\n";    # prints 1
 
 =item utf8_on($var)
 

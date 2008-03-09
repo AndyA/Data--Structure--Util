@@ -26,7 +26,7 @@ $obj->{key3}->{key33} = $obj->{key3}->{key31};
 ok( my $objects = get_refs( $obj ), "Got references" );
 is( @$objects, 9, "got all" );
 my $found;
-foreach my $ref ( @$objects ) {
+for my $ref ( @$objects ) {
     if ( $ref == $obj )                         { $found++; ok( 1 ) }
     if ( $ref == $obj->{key1} )                 { $found++; ok( 1 ) }
     if ( $ref == $obj->{key1}->[3] )            { $found++; ok( 1 ) }

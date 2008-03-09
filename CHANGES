@@ -1,5 +1,8 @@
 Revision history for Perl module Data::Structure::Util
 
+0.15 2008-03-09
+    - Fixed Makefile patching on platforms that use double quotes.
+
 0.14 2008-03-09
     - Use Storable::freeze instead of Data::Dumper for signature
       generation

@@ -25,7 +25,7 @@ BEGIN {
 
 use Test::Pod tests => scalar @classes;
 
-foreach my $class ( @classes ) {
+for my $class ( @classes ) {
     pod_file_ok( $class );
 }
 

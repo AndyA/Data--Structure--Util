@@ -28,7 +28,7 @@ BEGIN {
 ok( 1, "we loaded fine..." );
 
 my $string = '';
-foreach my $v ( 32 .. 126, 195 .. 255 ) {
+for my $v ( 32 .. 126, 195 .. 255 ) {
     $string .= chr( $v );
 }
 
@@ -70,7 +70,7 @@ sub compare {
     my $str2   = shift;
     my $i      = 0;
     my @chars2 = unpack 'C*', $str2;
-    foreach my $char1 ( unpack 'C*', $str1 ) {
+    for my $char1 ( unpack 'C*', $str1 ) {
         return if ( ord( $char1 ) != ord( $chars2[ $i++ ] ) );
     }
     1;

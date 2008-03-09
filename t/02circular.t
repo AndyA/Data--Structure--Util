@@ -63,7 +63,7 @@ $obj5->{key5}->{key55}      = $obj5->{key5}->{key53}->[2];
 my $obj6 = { key1 => undef };
 $obj = $obj6;
 my $V2 = [ 1, undef, \5, sub { } ];
-foreach ( 1 .. 50 ) {
+for ( 1 .. 50 ) {
     $obj->{key2} = {};
     $obj->{key1} = $V2;
     $obj         = $obj->{key2};

@@ -15,7 +15,7 @@ sub next_package {
   my $pkg = shift;
   no strict 'refs';
   
-  foreach my $key (%{"$pkg".'::'}) {
+  for my $key (%{"$pkg".'::'}) {
     next if ($key =~ /^\*/);
     if ($key =~ /(.+)\:\:$/) {
       if ($1 ne $pkg) {
