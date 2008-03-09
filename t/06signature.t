@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 
-our $PERL_HAS_UTF8;
+my $PERL_HAS_UTF8;
 
 BEGIN {
     if ( $] < 5.008 ) {

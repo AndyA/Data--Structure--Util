@@ -45,7 +45,7 @@ $obj3 = \$obj3;
 
 my $obj4 = { key1 => $obj3 };
 
-our @V1 = ( 1, 2, sub { } );
+my @V1 = ( 1, 2, sub { } );
 my $obj5 = {
     key1 => undef,
     key2 => sub { },
