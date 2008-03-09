@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use Data::Dumper;
-use Clone qw(clone);
+use Storable qw(dclone);
 
 use bytes;
 
@@ -39,7 +39,7 @@ if ( $hash2 ) {
     ok( 1, "Got a utf8 string" );
 }
 else {
-    $hash2 = clone( $hash );
+    $hash2 = dclone( $hash );
     ok( utf8_on( $hash ), "Have encoded utf8" );
 }
 
@@ -96,7 +96,7 @@ sub test_utf8 {
         );
         return XMLin( $xml, keyattr => [], suppressempty => undef );
     }
-    my $hash2 = clone( $hash ) or die "Could not clone";
+    my $hash2 = dclone( $hash ) or die "Could not clone";
     my $utf8 = decode( "iso-8859-1", $hash->{key1} );
     $hash2->{key1} = $utf8;
     $hash2;

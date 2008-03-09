@@ -3,7 +3,7 @@ package Data::Structure::Util;
 use strict;
 use warnings::register;
 use vars qw($VERSION @ISA @EXPORT @EXPORT_OK);
-use Data::Dumper;
+use Storable qw( freeze );
 use Digest::MD5 qw(md5_hex);
 
 require Exporter;
@@ -80,7 +80,7 @@ sub circular_off {
 
 sub signature {
     return @_
-      ? md5_hex( Dumper( [ $_[0], signature_xs( $_[0] ) ] ) )
+      ? md5_hex( freeze( [ $_[0], signature_xs( $_[0] ) ] ) )
       : '0' x 32;
 }
 

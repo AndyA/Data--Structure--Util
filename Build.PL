@@ -14,7 +14,6 @@ Module::Build->new(
         'Test::Pod'    => 0,
         'Test::Simple' => 0,
         'Test::More'   => 0,
-        'Clone'        => 0,
         'Scalar::Util' => '1.01',
     },
     dynamic_config => 0,
