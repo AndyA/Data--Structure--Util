@@ -1,5 +1,7 @@
 package Data::Structure::Util;
 
+use 5.006;
+
 use strict;
 use warnings::register;
 use vars qw($VERSION @ISA @EXPORT @EXPORT_OK);
