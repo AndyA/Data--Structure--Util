@@ -4,7 +4,7 @@ use strict;
 use warnings::register;
 use vars qw($VERSION @ISA @EXPORT @EXPORT_OK);
 use Storable qw( freeze );
-use Digest::MD5 qw(md5_hex);
+use Digest::MD5 qw( md5_hex );
 
 require Exporter;
 require DynaLoader;

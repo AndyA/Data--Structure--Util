@@ -1,4 +1,4 @@
-# use 5.008;
+use 5.006;
 unless ( eval "use Module::Build::Compat 0.02; 1" ) {
     print "This module requires Module::Build to install itself.\n";
 
