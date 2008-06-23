@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>CHANGES</string>
+	<string>Makefile.PL</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -35,19 +35,33 @@
 			<key>firstVisibleLine</key>
 			<integer>10</integer>
 		</dict>
-		<key>Makefile.PL</key>
+		<key>Makefile</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>46</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>13</integer>
+			<integer>0</integer>
+		</dict>
+		<key>Makefile.PL</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>43</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>2</integer>
 		</dict>
 		<key>Util.xs</key>
 		<dict>
@@ -77,91 +91,48 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>inc/Devel/CheckLib.pm</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>inc/IO/CaptureOutput.pm</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>lib/Data/Structure/Util.pm</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>12</integer>
 				<key>line</key>
-				<integer>124</integer>
+				<integer>11</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>t/04utf8.t</key>
-		<dict>
-			<key>caret</key>
+			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>8</integer>
+				<integer>11</integer>
 			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>t/06signature.t</key>
-		<dict>
-			<key>caret</key>
+			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>7</integer>
+				<integer>12</integer>
 			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>t/04utf8.t</string>
-		<string>t/06signature.t</string>
-		<string>lib/Data/Structure/Util.pm</string>
+		<string>CHANGES</string>
+		<string>Makefile</string>
 		<string>Makefile.PL</string>
 		<string>Util.xs</string>
-		<string>inc/Devel/CheckLib.pm</string>
-		<string>inc/IO/CaptureOutput.pm</string>
-		<string>CHANGES</string>
+		<string>lib/Data/Structure/Util.pm</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{351, 169}, {782, 826}}</string>
+	<string>{{341, 11}, {869, 999}}</string>
 </dict>
 </plist>
