@@ -1,0 +1,16 @@
+*.tar.gz
+.lwpcookies
+.prove
+Build
+MANIFEST.bak
+Makefile
+Makefile.old
+Session.vim
+TextMate-JumpTo-*
+Util.bs
+Util.c
+_build*
+andy
+blib*
+cover_db
+pm_to_blib*
