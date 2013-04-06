@@ -30,9 +30,6 @@ my %mm_args = (
   LICENSE => 'perl',
   MIN_PERL_VERSION => '5.008',
   META_MERGE => {
-    'no_index' => {
-      'directory' => 'inc',
-    },
     resources => {
       repository => 'https://github.com/AndyA/Data--Structure--Util',
     },
