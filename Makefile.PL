@@ -33,6 +33,9 @@ my %mm_args = (
     'no_index' => {
       'directory' => 'inc',
     },
+    resources => {
+      repository => 'https://github.com/AndyA/Data--Structure--Util',
+    },
   },
   LIBS   => [''],
   DEFINE => '',
