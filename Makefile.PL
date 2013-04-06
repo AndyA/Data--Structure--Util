@@ -20,6 +20,7 @@ my %mm_args = (
   PREREQ_PM     => {
     'Digest::MD5'  => 0,
     'Scalar::Util' => '1.01',
+    'Storable'     => 0,
   },
   TEST_REQUIRES => {
     'Test::More'   => 0,
