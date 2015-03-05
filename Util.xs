@@ -9,6 +9,7 @@
 #endif
 #define PTRLEN 40
 
+int has_seen( SV * sv, HV * seen );
 /*
    Generate a string containing the address,
    the flags and the Sv type
@@ -61,7 +62,7 @@ _utf8_set( SV * sv, HV * seen, int onoff ) {
             dsWARN( "Found hash\n" );
             myHash = ( HV * ) sv;
             hv_iterinit( myHash );
-            while ( HEntry = hv_iternext( myHash ) ) {
+            while (( HEntry = hv_iternext( myHash ) )) {
                 _utf8_set( HeVAL( HEntry ), seen, onoff );
             }
             break;
@@ -136,7 +137,7 @@ _utf8_flag_set( SV * sv, HV * seen, int onoff ) {
             dsWARN( "Found hash\n" );
             myHash = ( HV * ) sv;
             hv_iterinit( myHash );
-            while ( HEntry = hv_iternext( myHash ) ) {
+            while (( HEntry = hv_iternext( myHash ) )) {
                 _utf8_flag_set( HeVAL( HEntry ), seen, onoff );
             }
             break;
@@ -218,12 +219,13 @@ _has_utf8( SV * sv, HV * seen ) {
             dsWARN( "Found hash\n" );
             myHash = ( HV * ) sv;
             hv_iterinit( myHash );
-            while ( HEntry = hv_iternext( myHash ) ) {
+            while (( HEntry = hv_iternext( myHash ) )) {
                 if ( _has_utf8( HeVAL( HEntry ), seen ) )
                     return TRUE;
             }
             break;
         }
+    default: ;
     }
     return FALSE;
 }
@@ -272,11 +274,12 @@ _unbless( SV * sv, HV * seen ) {
             dsWARN( "a hash (PVHV)\n" );
             myHash = ( HV * ) sv;
             hv_iterinit( myHash );
-            while ( HEntry = hv_iternext( myHash ) ) {
+            while (( HEntry = hv_iternext( myHash ) )) {
                 _unbless( HeVAL( HEntry ), seen );
             }
             break;
         }
+    default: ;
     }
     return sv;
 }
@@ -318,11 +321,12 @@ _get_blessed( SV * sv, HV * seen, AV * objects ) {
         case SVt_PVHV:{
                 myHash = ( HV * ) sv;
                 hv_iterinit( myHash );
-                while ( HEntry = hv_iternext( myHash ) ) {
+                while (( HEntry = hv_iternext( myHash ) )) {
                     _get_blessed( HeVAL( HEntry ), seen, objects );
                 }
                 break;
             }
+        default: ;
         }
     }
 
@@ -363,11 +367,12 @@ _get_refs( SV * sv, HV * seen, AV * objects ) {
         case SVt_PVHV:{
                 myHash = ( HV * ) sv;
                 hv_iterinit( myHash );
-                while ( HEntry = hv_iternext( myHash ) ) {
+                while (( HEntry = hv_iternext( myHash ) )) {
                     _get_refs( HeVAL( HEntry ), seen, objects );
                 }
                 break;
             }
+        default: ;
         }
     }
     return objects;
@@ -413,13 +418,13 @@ _signature( SV * sv, HV * seen, AV * infos ) {
         case SVt_PVHV:
             myHash = ( HV * ) sv;
             hv_iterinit( myHash );
-            while ( HEntry = hv_iternext( myHash ) ) {
+            while (( HEntry = hv_iternext( myHash ) )) {
                 STRLEN len;
                 HKey = HePV( HEntry, len );
                 _signature( HeVAL( HEntry ), seen, infos );
             }
             break;
-
+        default: ;
         }
     }
     return infos;
@@ -512,7 +517,7 @@ _has_circular_ref( SV * sv, HV * parents, HV * seen ) {
             dsWARN( "Hash" );
             myHash = ( HV * ) sv;
             hv_iterinit( myHash );
-            while ( HEntry = hv_iternext( myHash ) ) {
+            while (( HEntry = hv_iternext( myHash ) )) {
 #if dsDEBUG
                 STRLEN len2;
                 char *HKey = HePV( HEntry, len2 );
@@ -526,6 +531,7 @@ _has_circular_ref( SV * sv, HV * parents, HV * seen ) {
             }
             break;
         }
+    default: ;
     }
     return &PL_sv_undef;
 }
@@ -617,7 +623,7 @@ _circular_off( SV * sv, HV * parents, HV * seen, SV * counter ) {
                 dsWARN( "Hash" );
                 myHash = ( HV * ) sv;
                 hv_iterinit( myHash );
-                while ( HEntry = hv_iternext( myHash ) ) {
+                while (( HEntry = hv_iternext( myHash ) )) {
 #if dsDEBUG
                     STRLEN len2;
                     char *HKey = HePV( HEntry, len2 );
@@ -635,6 +641,7 @@ _circular_off( SV * sv, HV * parents, HV * seen, SV * counter ) {
                 }
                 break;
             }
+        default: ;
         }
     }
     return counter;
