@@ -418,8 +418,9 @@ See the excellent article
 http://www.perl.com/pub/a/2002/08/07/proxyobject.html from Matt
 Sergeant for more info on circular references.
 
-The development version of this module and others can be found at
-http://opensource.fotango.com/svn/trunk/Data-Structure-Util/
+=head1 REPOSITORY
+
+https://github.com/AndyA/Data--Structure--Util
 
 =head1 BUGS
 
