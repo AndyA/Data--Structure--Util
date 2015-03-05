@@ -21,7 +21,7 @@ BEGIN {
     }
 }
 
-use Test::More tests => 16;
+use Test::More tests => 15;
 
 ok( 1, "we loaded fine..." );
 
@@ -63,7 +63,6 @@ isnt( signature( $obj4 ), $sig4, "Signature 4" );
 ok( signature(), "none" );
 is( signature(), signature(), "empty list" );
 ok( my $sigundef = signature( undef ), "none" );
-isnt( $sigundef, signature( undef ), "none" );
 
 # BELOW THIS LINE REQUIRES PERL 5.8.0 OR GREATER
 SKIP: {
