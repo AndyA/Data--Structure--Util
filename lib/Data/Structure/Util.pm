@@ -14,7 +14,7 @@ require AutoLoader;
 
 @ISA = qw( Exporter DynaLoader );
 
-$VERSION = '0.16';
+$VERSION = '0.17';
 
 @EXPORT_OK = qw(
   unbless get_blessed get_refs has_circular_ref circular_off signature
