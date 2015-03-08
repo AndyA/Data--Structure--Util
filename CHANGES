@@ -1,8 +1,9 @@
 Revision history for Perl module Data::Structure::Util
 
-0.16 2015-03-05
+0.16 2015-03-08
     - Removed assertion that signature(undef) ne signature(undef) - no
       longer valid for Perl 5.20
+    - Fix GCC warnings (AMBS)
 
 0.15 2008-03-09
     - Fixed Makefile patching on platforms that use double quotes.
