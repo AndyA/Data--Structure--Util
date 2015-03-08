@@ -302,7 +302,7 @@ _get_blessed( SV * sv, HV * seen, AV * objects ) {
             return objects;
         _get_blessed( SvRV( sv ), seen, objects );
         if ( sv_isobject( sv ) ) {
-            SvREFCNT_inc( sv );
+            (void) SvREFCNT_inc( sv );
             av_push( objects, sv );
         }
 
@@ -349,7 +349,7 @@ _get_refs( SV * sv, HV * seen, AV * objects ) {
         if ( has_seen( sv, seen ) )
             return objects;
         _get_refs( SvRV( sv ), seen, objects );
-        SvREFCNT_inc( sv );
+        (void) SvREFCNT_inc( sv );
         av_push( objects, sv );
 
     }
@@ -465,7 +465,7 @@ _has_circular_ref( SV * sv, HV * parents, HV * seen ) {
             else {
 #endif
                 dsWARN( "found a circular reference!!!" );
-                SvREFCNT_inc( sv );
+                (void) SvREFCNT_inc( sv );
                 return sv;
 #ifdef SvWEAKREF
             }
@@ -476,8 +476,8 @@ _has_circular_ref( SV * sv, HV * parents, HV * seen ) {
             return &PL_sv_undef;
         }
 
-        hv_store( parents, addr, len, NULL, 0 );
-        hv_store( seen, addr, len, NULL, 0 );
+        (void) hv_store( parents, addr, len, NULL, 0 );
+        (void) hv_store( seen, addr, len, NULL, 0 );
 #ifdef SvWEAKREF
         if ( SvWEAKREF( sv ) ) {
             dsWARN( "found a weak reference 2" );
@@ -489,8 +489,8 @@ _has_circular_ref( SV * sv, HV * parents, HV * seen ) {
 #ifdef SvWEAKREF
         }
 #endif
-        hv_delete( seen, addr, ( U32 ) len, 0 );
-        hv_delete( parents, addr, ( U32 ) len, 0 );
+        (void) hv_delete( seen, addr, ( U32 ) len, 0 );
+        (void) hv_delete( parents, addr, ( U32 ) len, 0 );
         return ret;
     }
 
@@ -576,8 +576,8 @@ _circular_off( SV * sv, HV * parents, HV * seen, SV * counter ) {
                 return &PL_sv_undef;
             }
 
-            hv_store( parents, addr, len, NULL, 0 );
-            hv_store( seen, addr, len, NULL, 0 );
+            (void) hv_store( parents, addr, len, NULL, 0 );
+            (void) hv_store( seen, addr, len, NULL, 0 );
 #ifdef SvWEAKREF
             if ( SvWEAKREF( sv ) ) {
                 dsWARN( "found a weak reference 2" );
@@ -589,8 +589,8 @@ _circular_off( SV * sv, HV * parents, HV * seen, SV * counter ) {
 #ifdef SvWEAKREF
             }
 #endif
-            hv_delete( seen, addr, ( U32 ) len, 0 );
-            hv_delete( parents, addr, ( U32 ) len, 0 );
+            (void) hv_delete( seen, addr, ( U32 ) len, 0 );
+            (void) hv_delete( parents, addr, ( U32 ) len, 0 );
         }
 
     }
@@ -790,7 +790,7 @@ has_seen( SV * sv, HV * seen ) {
         return TRUE;
     }
     else {
-        hv_store( seen, addr, ( U32 ) strlen( addr ), NULL, 0 );
+        (void) hv_store( seen, addr, ( U32 ) strlen( addr ), NULL, 0 );
         return FALSE;
     }
 }
