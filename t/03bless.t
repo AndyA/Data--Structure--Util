@@ -5,8 +5,9 @@ use strict;
 use warnings;
 use Data::Structure::Util qw(unbless get_blessed has_circular_ref);
 use Data::Dumper;
+use B qw(svref_2object);
 
-use Test::More tests => 17;
+use Test::More tests => 21;
 
 ok( 1, "we loaded fine..." );
 
@@ -58,3 +59,17 @@ is( ref( $got->[0] ), 'Pie' );
 is( $a, unbless( $a ), "Have unblessed array" );
 is( $got->[0], $r );
 isnt( ref( $got->[0] ), 'Pie' );
+
+{ package overloaded; use overload q("") => sub { 'overloaded' } }
+
+my $ov = bless {}, 'overloaded';
+my $ov_stash = svref_2object($ov)->SvSTASH;
+
+is( "$ov", 'overloaded', 'Object overloaded' );
+is( $ov_stash->NAME, 'overloaded', 'Object has stash' );
+
+unbless( $ov );
+$ov_stash = svref_2object($ov)->SvSTASH;
+
+isnt( "$ov", 'overloaded', 'Not overloaded anymore' );
+is( $$ov_stash, 0, 'No more stash' );

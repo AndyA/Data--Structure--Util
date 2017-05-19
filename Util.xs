@@ -249,8 +249,11 @@ _unbless( SV * sv, HV * seen ) {
             return sv;
 
         if ( sv_isobject( sv ) ) {
+            SvAMAGIC_off( sv );
             sv = ( SV * ) SvRV( sv );
             SvOBJECT_off( sv );
+            SvREFCNT_dec( SvSTASH( sv ) );
+            SvSTASH( sv ) = NULL;
         }
         else {
             sv = ( SV * ) SvRV( sv );
